@@ -48,17 +48,17 @@
     };
   };
 
-  home.file.".claude/CLAUDE.md".source = ./claude/CLAUDE.md;
+  home.file.".claude/CLAUDE.md".source = ./home/.claude/CLAUDE.md;
   home.file.".claude/skills" = {
-    source = ./claude/skills;
+    source = ./home/.claude/skills;
     recursive = true;
   };
   home.file.".claude/rules" = {
-    source = ./claude/rules;
+    source = ./home/.claude/rules;
     recursive = true;
   };
   home.file.".claude/output-styles" = {
-    source = ./claude/output-styles;
+    source = ./home/.claude/output-styles;
     recursive = true;
   };
 
@@ -66,7 +66,7 @@
     run bash -c '
       mkdir -p ~/.claude
       [ -f ~/.claude/settings.json ] || echo "{}" > ~/.claude/settings.json
-      ${pkgs.jq}/bin/jq -s ".[0] + .[1]" ~/.claude/settings.json ${./claude/settings.json} > ~/.claude/settings.json.tmp
+      ${pkgs.jq}/bin/jq -s ".[0] + .[1]" ~/.claude/settings.json ${./home/.claude/settings.json} > ~/.claude/settings.json.tmp
       mv ~/.claude/settings.json.tmp ~/.claude/settings.json
     '
   '';
