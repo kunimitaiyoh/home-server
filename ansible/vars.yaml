@@ -1,0 +1,4 @@
+hostname: radio
+ethernet_mac: "38:05:25:37:f0:78"
+timezone: Asia/Tokyo
+username: bard
