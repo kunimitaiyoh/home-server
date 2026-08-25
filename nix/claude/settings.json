@@ -60,5 +60,6 @@
   },
   "hooks": {},
   "language": "Japanese",
-  "autoUpdatesChannel": "stable"
+  "autoUpdatesChannel": "stable",
+  "outputStyle": "Strict"
 }

@@ -48,12 +48,17 @@
     };
   };
 
+  home.file.".claude/CLAUDE.md".source = ./claude/CLAUDE.md;
   home.file.".claude/skills" = {
     source = ./claude/skills;
     recursive = true;
   };
   home.file.".claude/rules" = {
     source = ./claude/rules;
+    recursive = true;
+  };
+  home.file.".claude/output-styles" = {
+    source = ./claude/output-styles;
     recursive = true;
   };
 
