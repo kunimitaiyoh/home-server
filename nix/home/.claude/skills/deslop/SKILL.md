@@ -1,11 +1,11 @@
 ---
 name: deslop
-description: Remove AI-generated code slop from a branch. Use when cleaning up AI-generated code, removing unnecessary comments, defensive checks, or type casts. Checks diff against main and fixes style inconsistencies.
+description: Remove AI-generated code slop from a branch. Use when cleaning up AI-generated code, removing unnecessary comments, defensive checks, or type casts. Checks diff against the default branch and fixes style inconsistencies.
 ---
 
 # Remove AI Code Slop
 
-Check the diff against `dev` branch and remove all AI-generated slop introduced in this branch.
+Check the diff against the repository default branch and remove all AI-generated slop introduced in this branch.
 
 ## What to Remove
 
@@ -17,7 +17,7 @@ Check the diff against `dev` branch and remove all AI-generated slop introduced 
 
 ## Process
 
-1. Get the diff against dev: `git diff dev...HEAD`
+1. Resolve the default branch: `git symbolic-ref refs/remotes/origin/HEAD`, then get the diff: `git diff <base>...HEAD`
 2. Review each changed file for slop patterns
 3. Remove identified slop while preserving legitimate changes
 4. Report a 1-3 sentence summary of what was changed

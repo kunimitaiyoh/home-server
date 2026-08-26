@@ -13,7 +13,7 @@ Configuration management for the single home server `radio` (Ubuntu Server 26.04
 
 ## Design principles
 
-- Ansible must be idempotent. Use dedicated modules instead of `shell`/`command`; the Nix installer invocation guarded by `creates` is the one accepted exception.
+- Ansible must be idempotent. Use dedicated modules instead of `shell`/`command`; the accepted exceptions are the Nix installer invocation guarded by `creates` and the `netplan apply` handler, which runs only when notified by a configuration change.
 - The playbook is a single `site.yaml`. Split it into task files only when it actually grows too large.
 - Reproducibility: `flake.lock` is committed. `nixpkgs` tracks the current stable branch; `nixos-unstable` is used only for fast-moving packages (claude-code, codex, opencode).
 
