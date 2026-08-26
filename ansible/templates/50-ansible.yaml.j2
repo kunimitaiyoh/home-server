@@ -1,0 +1,8 @@
+network:
+  version: 2
+  ethernets:
+    ethernet:
+      match:
+        macaddress: "{{ ethernet_mac }}"
+      dhcp4: true
+      dhcp-identifier: mac

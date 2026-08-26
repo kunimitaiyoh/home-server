@@ -1,0 +1,154 @@
+- hosts: localhost
+  become: true
+  vars_files:
+    - vars.yaml
+  tasks:
+    - name: Set hostname
+      ansible.builtin.hostname:
+        name: "{{ hostname }}"
+
+    - name: Set timezone
+      community.general.timezone:
+        name: "{{ timezone }}"
+
+    - name: Deploy Netplan configuration
+      ansible.builtin.template:
+        src: templates/50-ansible.yaml.j2
+        dest: /etc/netplan/50-ansible.yaml
+        mode: "0600"
+      notify: Apply netplan
+
+    - name: Remove installer Netplan configuration
+      ansible.builtin.file:
+        path: /etc/netplan/00-installer-config.yaml
+        state: absent
+      notify: Apply netplan
+
+    - name: Deploy sshd configuration
+      ansible.builtin.copy:
+        src: files/50-ansible.conf
+        dest: /etc/ssh/sshd_config.d/50-ansible.conf
+        mode: "0644"
+      notify: Restart ssh
+
+    - name: Remove cloud-init sshd configuration
+      ansible.builtin.file:
+        path: /etc/ssh/sshd_config.d/50-cloud-init.conf
+        state: absent
+      notify: Restart ssh
+
+    - name: Set authorized key
+      ansible.posix.authorized_key:
+        user: "{{ username }}"
+        key: "{{ lookup('file', 'files/authorized_keys') }}"
+
+    - name: Allow service ports
+      community.general.ufw:
+        rule: allow
+        port: "{{ item.port }}"
+        proto: "{{ item.proto }}"
+      loop:
+        - { port: "22", proto: tcp }
+
+        # mDNS
+        - { port: "5353", proto: udp }
+
+        # WS-Discovery (3702, 5357)
+        - { port: "3702", proto: udp }
+        - { port: "5357", proto: tcp }
+
+    - name: Enable UFW with default deny incoming
+      community.general.ufw:
+        state: enabled
+        policy: deny
+        direction: incoming
+
+    - name: Add Docker GPG key
+      ansible.builtin.get_url:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        dest: /etc/apt/keyrings/docker.asc
+        mode: "0644"
+
+    - name: Add Docker apt repository
+      ansible.builtin.deb822_repository:
+        name: docker
+        types: deb
+        uris: https://download.docker.com/linux/ubuntu
+        suites: "{{ ansible_distribution_release }}"
+        components: stable
+        signed_by: /etc/apt/keyrings/docker.asc
+
+    - name: Install Docker
+      ansible.builtin.apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+        update_cache: true
+
+    - name: Enable Docker service
+      ansible.builtin.systemd_service:
+        name: docker
+        enabled: true
+        state: started
+
+    - name: Add user to docker group
+      ansible.builtin.user:
+        name: "{{ username }}"
+        groups: docker
+        append: true
+
+    - name: Install Avahi
+      ansible.builtin.apt:
+        name: avahi-daemon
+
+    - name: Enable Avahi service
+      ansible.builtin.systemd_service:
+        name: avahi-daemon
+        enabled: true
+        state: started
+
+    - name: Install wsdd
+      ansible.builtin.apt:
+        name: wsdd
+
+    - name: Deploy wsdd service unit
+      ansible.builtin.copy:
+        src: files/wsdd.service
+        dest: /etc/systemd/system/wsdd.service
+        mode: "0644"
+
+    - name: Enable wsdd service
+      ansible.builtin.systemd_service:
+        name: wsdd
+        daemon_reload: true
+        enabled: true
+        state: started
+
+    - name: Download Nix installer
+      ansible.builtin.get_url:
+        url: https://nixos.org/nix/install
+        dest: /tmp/nix-install.sh
+        mode: "0755"
+
+    - name: Install Nix
+      ansible.builtin.command:
+        cmd: /tmp/nix-install.sh --daemon --yes
+        creates: /nix/var/nix
+
+    - name: Enable Nix flakes
+      ansible.builtin.lineinfile:
+        path: /etc/nix/nix.conf
+        line: experimental-features = nix-command flakes
+
+  handlers:
+    - name: Apply netplan
+      ansible.builtin.command:
+        cmd: netplan apply
+
+    - name: Restart ssh
+      ansible.builtin.systemd_service:
+        name: ssh
+        state: restarted
