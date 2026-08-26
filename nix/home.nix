@@ -37,7 +37,11 @@
 
   programs.home-manager.enable = true;
 
-  programs.bash.enable = true;
+  programs.bash = {
+    enable = true;
+    initExtra = builtins.readFile ./home/.bashrc;
+    profileExtra = builtins.readFile ./home/.profile;
+  };
 
   programs.mise = {
     enable = true;

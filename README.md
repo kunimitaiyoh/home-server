@@ -1,6 +1,6 @@
 # home-server
 
-Configuration management for the home server `radio` (Ubuntu Server).
+Configuration management for the home server `radio`.
 
 ## Setup
 

@@ -1,6 +1,6 @@
 # home-server
 
-Configuration management for the single home server `radio` (Ubuntu Server 26.04 LTS). This repository is dedicated to `radio` — do not generalize it for multiple hosts (no `roles/`, no host-specific directory hierarchies).
+Configuration management for the single home server `radio` (MINISFORUM X1 Lite-255, Ubuntu Server 26.04 LTS). This repository is dedicated to `radio` — do not generalize it for multiple hosts (no `roles/`, no host-specific directory hierarchies).
 
 ## Responsibilities
 
