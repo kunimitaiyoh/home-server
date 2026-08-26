@@ -12,8 +12,17 @@ After applying, the `home-manager` command becomes available.
 
 ## Running individually
 
-- Ansible only: `cd ansible && ansible-playbook site.yaml --ask-become-pass`
-- Home Manager only: `home-manager switch --flake ./nix#radio`
+### Ansible only
+
+```bash
+(cd ansible && ansible-playbook site.yaml --ask-become-pass)
+```
+
+### Home Manager only
+
+```bash
+home-manager switch -b backup --flake ./nix#radio
+```
 
 ## Updating
 
