@@ -47,7 +47,7 @@
     enable = true;
     enableBashIntegration = true;
     globalConfig.tools = {
-      node = [ "22" "24" "26" ];
+      node = [ "26" "24" "22" ];
       pnpm = "latest";
     };
   };
