@@ -114,9 +114,16 @@
       ansible.builtin.apt:
         name: wsdd
 
+    - name: Deploy wsdd service unit
+      ansible.builtin.copy:
+        src: files/wsdd.service
+        dest: /etc/systemd/system/wsdd.service
+        mode: "0644"
+
     - name: Enable wsdd service
       ansible.builtin.systemd_service:
         name: wsdd
+        daemon_reload: true
         enabled: true
         state: started
 
