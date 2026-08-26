@@ -49,7 +49,11 @@
         proto: "{{ item.proto }}"
       loop:
         - { port: "22", proto: tcp }
+
+        # mDNS
         - { port: "5353", proto: udp }
+
+        # WS-Discovery (3702, 5357)
         - { port: "3702", proto: udp }
         - { port: "5357", proto: tcp }
 
