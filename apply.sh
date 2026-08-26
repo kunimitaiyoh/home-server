@@ -9,7 +9,7 @@ if ! command -v nix >/dev/null && [ -e /etc/profile.d/nix.sh ]; then
 fi
 
 if command -v home-manager >/dev/null; then
-  home-manager switch --flake ./nix#radio
+  home-manager switch -b backup --flake ./nix#radio
 else
-  nix run home-manager/release-26.05 -- switch --flake ./nix#radio
+  nix run home-manager/release-26.05 -- switch -b backup --flake ./nix#radio
 fi
