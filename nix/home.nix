@@ -53,6 +53,10 @@
   };
 
   home.file.".claude/CLAUDE.md".source = ./home/.claude/CLAUDE.md;
+  home.file.".claude/statusline.sh" = {
+    source = ./home/.claude/statusline.sh;
+    executable = true;
+  };
   home.file.".claude/skills" = {
     source = ./home/.claude/skills;
     recursive = true;

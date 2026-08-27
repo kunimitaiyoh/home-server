@@ -40,7 +40,13 @@
     "defaultMode": "default"
   },
   "hooks": {},
+  "statusLine": {
+    "type": "command",
+    "command": "/home/bard/.claude/statusline.sh"
+  },
   "language": "Japanese",
+  "promptSuggestionEnabled": false,
+  "autoMemoryEnabled": false,
   "autoUpdatesChannel": "stable",
   "outputStyle": "Strict"
 }
