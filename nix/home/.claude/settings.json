@@ -34,8 +34,6 @@
     ],
     "deny": [],
     "ask": [
-      "Bash(git reset *)",
-      "Bash(rm *)"
     ],
     "defaultMode": "default"
   },
