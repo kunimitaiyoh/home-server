@@ -11,16 +11,6 @@
       "Bash(gh pr list *)",
       "Bash(gh pr view *)",
       "Bash(gh run view *)",
-      "Bash(git -C * check-ignore *)",
-      "Bash(git -C * checkout *)",
-      "Bash(git -C * diff *)",
-      "Bash(git -C * fetch *)",
-      "Bash(git -C * grep *)",
-      "Bash(git -C * log *)",
-      "Bash(git -C * ls-remote *)",
-      "Bash(git -C * ls-tree *)",
-      "Bash(git -C * show *)",
-      "Bash(git -C * status *)",
       "Bash(git check-ignore *)",
       "Bash(git checkout *)",
       "Bash(git fetch *)",
@@ -42,7 +32,20 @@
     "defaultMode": "default"
   },
   "model": "opus[1m]",
-  "hooks": {},
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Bash(git -C *)",
+            "command": "/home/bard/.claude/hooks/deny-git-global-options.sh"
+          }
+        ]
+      }
+    ]
+  },
   "statusLine": {
     "type": "command",
     "command": "/home/bard/.claude/statusline.sh"
@@ -50,7 +53,7 @@
   "language": "Japanese",
   "promptSuggestionEnabled": false,
   "autoMemoryEnabled": false,
-  "autoUpdatesChannel": "stable",
+  "autoUpdatesChannel": "latest",
   "remoteControlAtStartup": true,
   "outputStyle": "Strict"
 }

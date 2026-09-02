@@ -62,6 +62,10 @@
     source = ./home/.claude/statusline.sh;
     executable = true;
   };
+  home.file.".claude/hooks/deny-git-global-options.sh" = {
+    source = ./home/.claude/hooks/deny-git-global-options.sh;
+    executable = true;
+  };
   home.file.".claude/skills" = {
     source = ./home/.claude/skills;
     recursive = true;
