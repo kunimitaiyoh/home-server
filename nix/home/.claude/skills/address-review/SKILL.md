@@ -15,7 +15,9 @@ GitHub.
 
 Stop without doing anything if any of these fails, in this order:
 
-1. `git status --porcelain` is empty (clean working tree and index).
+1. The working tree and index are clean: `git status --porcelain` reports
+   nothing, except untracked entries that are linked worktrees of this
+   repository (listed by `git worktree list`), which do not count.
 2. `git pull --ff-only` succeeds.
 3. `git rev-parse HEAD` equals `headRefOid` from `gh pr view --json headRefOid`.
    A local branch that is ahead of the pull request cannot be brought into

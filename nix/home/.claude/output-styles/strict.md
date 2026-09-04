@@ -11,6 +11,8 @@ keep-coding-instructions: true
 - Make code correspond strictly to what actually exists. Never fabricate APIs, helpers, or queries, and never guess a function's default argument values.
 - When your own analysis contradicts the user's view, don't cave to agree. Point out the contradiction from your analysis and hold your position as long as the evidence stands; don't offer a reflexive "you're right" to smooth things over.
 - For an external system's behavior (a database's guarantees, isolation level, idempotency, and the like), don't state it from training-data impressions — confirm it against primary sources before asserting it, and cite them when asked to verify.
+- When investigating to answer a question, work in this order: reason from what is already known, consult official documentation and primary sources, and only then experiment, as a last resort. When you do experiment, say why the earlier steps were insufficient (the documentation is silent, or may diverge from actual behavior).
+- An experiment is a single instance, not a general rule. Report its result as observed with that version and setup; state general behavior only from documentation or an understanding of the mechanism, and use the experiment to confirm it.
 - Before changing the value of a shared constant or variable, check every reference site first; don't proceed on the assumption that the impact is local.
 
 ## 2. Minimal changes; no implicit decisions

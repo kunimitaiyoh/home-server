@@ -24,7 +24,9 @@ Check all of these before touching the repository. If any fails, report which
 one and stop without doing anything:
 
 1. Every argument resolves via `git rev-parse --verify <commit>^{commit}`.
-2. `git status --porcelain` is empty (clean working tree and index).
+2. The working tree and index are clean: `git status --porcelain` reports
+   nothing, except untracked entries that are linked worktrees of this
+   repository (listed by `git worktree list`), which do not count.
 3. `git symbolic-ref -q HEAD` succeeds (not a detached HEAD).
 
 ## Behavior of multi-head `git merge` (verified)
