@@ -54,6 +54,5 @@
   "promptSuggestionEnabled": false,
   "autoMemoryEnabled": false,
   "autoUpdatesChannel": "latest",
-  "remoteControlAtStartup": true,
-  "outputStyle": "Strict"
+  "remoteControlAtStartup": true
 }

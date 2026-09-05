@@ -71,15 +71,6 @@
     source = ./home/.claude/skills;
     recursive = true;
   };
-  home.file.".claude/rules" = {
-    source = ./home/.claude/rules;
-    recursive = true;
-  };
-  home.file.".claude/output-styles" = {
-    source = ./home/.claude/output-styles;
-    recursive = true;
-  };
-
   home.activation.claudeSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     run bash -c '
       mkdir -p ~/.claude
