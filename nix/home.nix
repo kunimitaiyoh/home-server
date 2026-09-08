@@ -31,7 +31,6 @@
     awscli2
   ]) ++ (with pkgs-unstable; [
     claude-code
-    codex
     opencode
   ]);
 

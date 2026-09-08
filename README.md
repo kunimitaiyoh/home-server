@@ -24,6 +24,16 @@ After applying, the `home-manager` command becomes available.
 home-manager switch -b backup --flake ./nix#radio
 ```
 
+## Manually installed tools
+
+These tools are intentionally outside Ansible and Home Manager because they update themselves.
+
+- Codex CLI: requires `bubblewrap` for sandboxing, which Ansible installs.
+
+```bash
+curl -fsSL https://chatgpt.com/codex/install.sh | sh
+```
+
 ## Updating
 
 - Package updates: run `cd nix && nix flake update` and commit `flake.lock`
