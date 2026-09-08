@@ -131,6 +131,10 @@
         enabled: true
         state: started
 
+    - name: Install bubblewrap
+      ansible.builtin.apt:
+        name: bubblewrap
+
     - name: Download Nix installer
       ansible.builtin.get_url:
         url: https://nixos.org/nix/install
