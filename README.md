@@ -28,3 +28,7 @@ home-manager switch -b backup --flake ./nix#radio
 
 - Package updates: run `cd nix && nix flake update` and commit `flake.lock`
 - If `flake.lock` does not exist yet, it is generated on the first apply; commit it
+
+```bash
+nix flake update --flake ./nix
+```
