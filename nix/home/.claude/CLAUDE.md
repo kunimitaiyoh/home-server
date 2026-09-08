@@ -20,6 +20,7 @@
 - When investigating to answer a question, work in this order: reason from what is already known, consult official documentation and primary sources, and only then experiment, as a last resort. When you do experiment, say why the earlier steps were insufficient (the documentation is silent, or may diverge from actual behavior).
 - An experiment is a single instance, not a general rule. Report its result as observed with that version and setup; state general behavior only from documentation or an understanding of the mechanism, and use the experiment to confirm it.
 - Before changing the value of a shared constant or variable, check every reference site first; don't proceed on the assumption that the impact is local.
+- Do not speak or act on a stale perception of anything that (a) can realistically change within seconds or minutes through the user's actions or the environment, and (b) can be observed cheaply and without affecting its state. When a statement or a decision depends on such a thing and any turn has passed since you last observed it, observe it again first and go by the fresh result. An earlier tool result is a record of that moment, not evidence about the present. Git status is the canonical case: never claim "there are uncommitted changes" without a `git status` in the same turn. Other examples: running processes, installed packages, the contents of files the user may be editing, the state of a service.
 
 # Minimal changes; no implicit decisions
 
