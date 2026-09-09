@@ -57,7 +57,10 @@
     source = ./home/.local/bin;
     recursive = true;
   };
-  home.file.".claude/CLAUDE.md".source = ./home/.claude/CLAUDE.md;
+  home.file.".claude/CLAUDE.md".text =
+    builtins.readFile ./home/.agents/AGENTS.md
+    + "\n"
+    + builtins.readFile ./home/.claude/CLAUDE.md;
   home.file.".claude/statusline.sh" = {
     source = ./home/.claude/statusline.sh;
     executable = true;
