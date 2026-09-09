@@ -135,6 +135,71 @@
       ansible.builtin.apt:
         name: bubblewrap
 
+    - name: Install Ubuntu Desktop
+      ansible.builtin.apt:
+        name:
+          - ubuntu-desktop-minimal
+          - gnome-remote-desktop
+
+    - name: Enable GDM service
+      ansible.builtin.systemd_service:
+        name: gdm
+        enabled: true
+        state: started
+
+    - name: Create GNOME Remote Desktop state directory
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        owner: gnome-remote-desktop
+        group: gnome-remote-desktop
+        mode: "0700"
+      loop:
+        - /var/lib/gnome-remote-desktop/.local
+        - /var/lib/gnome-remote-desktop/.local/share
+        - /var/lib/gnome-remote-desktop/.local/share/gnome-remote-desktop
+
+    - name: Generate GNOME Remote Desktop TLS key
+      community.crypto.openssl_privatekey:
+        path: /var/lib/gnome-remote-desktop/.local/share/gnome-remote-desktop/tls.key
+        owner: gnome-remote-desktop
+        group: gnome-remote-desktop
+        mode: "0600"
+      notify: Restart gnome-remote-desktop
+
+    - name: Generate GNOME Remote Desktop TLS certificate signing request
+      community.crypto.openssl_csr:
+        path: /var/lib/gnome-remote-desktop/.local/share/gnome-remote-desktop/tls.csr
+        privatekey_path: /var/lib/gnome-remote-desktop/.local/share/gnome-remote-desktop/tls.key
+        common_name: "{{ hostname }}"
+        owner: gnome-remote-desktop
+        group: gnome-remote-desktop
+        mode: "0600"
+
+    - name: Generate GNOME Remote Desktop TLS certificate
+      community.crypto.x509_certificate:
+        path: /var/lib/gnome-remote-desktop/.local/share/gnome-remote-desktop/tls.crt
+        csr_path: /var/lib/gnome-remote-desktop/.local/share/gnome-remote-desktop/tls.csr
+        privatekey_path: /var/lib/gnome-remote-desktop/.local/share/gnome-remote-desktop/tls.key
+        provider: selfsigned
+        owner: gnome-remote-desktop
+        group: gnome-remote-desktop
+        mode: "0644"
+      notify: Restart gnome-remote-desktop
+
+    - name: Deploy GNOME Remote Desktop configuration
+      ansible.builtin.copy:
+        src: files/grd.conf
+        dest: /etc/gnome-remote-desktop/grd.conf
+        mode: "0644"
+      notify: Restart gnome-remote-desktop
+
+    - name: Enable GNOME Remote Desktop service
+      ansible.builtin.systemd_service:
+        name: gnome-remote-desktop
+        enabled: true
+        state: started
+
     - name: Download Nix installer
       ansible.builtin.get_url:
         url: https://nixos.org/nix/install
@@ -159,4 +224,9 @@
     - name: Restart ssh
       ansible.builtin.systemd_service:
         name: ssh
+        state: restarted
+
+    - name: Restart gnome-remote-desktop
+      ansible.builtin.systemd_service:
+        name: gnome-remote-desktop
         state: restarted
