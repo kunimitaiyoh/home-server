@@ -26,7 +26,9 @@
       "WebFetch",
       "WebSearch"
     ],
-    "deny": [],
+    "deny": [
+      "Bash(git -C *)"
+    ],
     "ask": [
       "Bash(npm *)",
       "Bash(npx *)"
@@ -34,20 +36,7 @@
     "defaultMode": "default"
   },
   "model": "opus[1m]",
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "if": "Bash(git -C *)",
-            "command": "/home/bard/.claude/hooks/deny-git-global-options.sh"
-          }
-        ]
-      }
-    ]
-  },
+  "hooks": {},
   "statusLine": {
     "type": "command",
     "command": "/home/bard/.claude/statusline.sh"
