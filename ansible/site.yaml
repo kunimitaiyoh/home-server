@@ -135,6 +135,13 @@
       ansible.builtin.apt:
         name: bubblewrap
 
+    - name: Install fonts
+      ansible.builtin.apt:
+        name:
+          - fonts-noto-core
+          - fonts-noto-cjk
+          - fonts-noto-color-emoji
+
     - name: Install Ubuntu Desktop
       ansible.builtin.apt:
         name:
