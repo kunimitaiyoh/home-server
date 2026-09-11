@@ -73,6 +73,7 @@
     source = ./home/.claude/skills;
     recursive = true;
   };
+  home.file.".codex/rules/settings.rules".source = ./home/.codex/rules/settings.rules;
   home.activation.claudeSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     run bash -c '
       mkdir -p ~/.claude
