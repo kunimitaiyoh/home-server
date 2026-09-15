@@ -1,0 +1,5 @@
+interface:
+  display_name: "Merge"
+  short_description: "Merge commits and resolve conflicts with a report"
+policy:
+  allow_implicit_invocation: false

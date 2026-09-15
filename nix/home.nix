@@ -69,9 +69,10 @@
     source = ./home/.agents/skills;
     recursive = true;
   };
+  home.file.".claude/skills/import-conversation".source = ./home/.claude/skills/import-conversation;
   home.file.".agents/skills".source = ./home/.agents/skills;
   home.file.".codex/AGENTS.md".source = ./home/.agents/AGENTS.md;
-  home.file.".codex/rules/settings.rules".source = ./home/.codex/rules/settings.rules;
+  home.file.".codex/rules".source = ./home/.codex/rules;
   home.activation.claudeSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     run bash -c '
       mkdir -p ~/.claude

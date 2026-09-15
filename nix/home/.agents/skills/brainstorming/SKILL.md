@@ -8,25 +8,25 @@ disable-model-invocation: true
 
 Help turn ideas into fully formed designs through natural collaborative dialogue.
 
-Start by understanding the current project context, then ask clarifying questions to refine the idea. Once you understand what you're building, enter plan mode and present a plan based on the design.
+Start by understanding the current project context, then ask clarifying questions to refine the idea. Once you understand what you're building, present a plan based on the design through the plan mechanism of the tool you are running in (see "Plan mechanism by tool").
 
 <HARD-GATE>
-Do NOT write any code, scaffold any project, or take any implementation action within this skill. The skill's terminal action is presenting a plan in plan mode; implementation begins only after the user approves that plan. This applies to EVERY project regardless of perceived simplicity.
+Do NOT write any code, scaffold any project, or take any implementation action within this skill. The skill's terminal action is presenting a plan through the plan mechanism; implementation begins only after the user approves that plan. This applies to EVERY project regardless of perceived simplicity.
 </HARD-GATE>
 
 ## Anti-Pattern: "This Is Too Simple To Need A Design"
 
-Every project goes through this process. A todo list, a single-function utility, a config change — all of them. "Simple" projects are where unexamined assumptions cause the most wasted work. The plan can be short (a few sentences for truly simple projects), but you MUST present it through plan mode.
+Every project goes through this process. A todo list, a single-function utility, a config change — all of them. "Simple" projects are where unexamined assumptions cause the most wasted work. The plan can be short (a few sentences for truly simple projects), but you MUST present it through the plan mechanism.
 
 ## Checklist
 
-You MUST create a task for each of these items and complete them in order:
+Complete these items in order. Track them with the task tool where one is available (Claude Code: `TaskCreate`). Codex provides no task tool in Plan mode; keep the checklist in the conversation text instead:
 
 1. **Explore project context** — check files, docs, recent commits
 2. **Ask clarifying questions** — batch independent questions, never dependent ones; understand purpose/constraints/success criteria
 3. **Propose 2-3 approaches** — with trade-offs and your recommendation
 4. **Design self-review** — quick inline check for placeholders, contradictions, ambiguity, scope (see below)
-5. **Present the plan** — enter plan mode and present a plan based on the agreed design
+5. **Present the plan** — present a plan based on the agreed design through the plan mechanism
 
 ## Process Flow
 
@@ -36,16 +36,16 @@ digraph brainstorming {
     "Ask clarifying questions" [shape=box];
     "Propose 2-3 approaches" [shape=box];
     "Design self-review\n(fix inline)" [shape=box];
-    "Present plan in plan mode" [shape=doublecircle];
+    "Present the plan" [shape=doublecircle];
 
     "Explore project context" -> "Ask clarifying questions";
     "Ask clarifying questions" -> "Propose 2-3 approaches";
     "Propose 2-3 approaches" -> "Design self-review\n(fix inline)";
-    "Design self-review\n(fix inline)" -> "Present plan in plan mode";
+    "Design self-review\n(fix inline)" -> "Present the plan";
 }
 ```
 
-**The terminal state is presenting the plan in plan mode.** Do NOT implement anything within this skill; implementation starts only after the user approves the plan.
+**The terminal state is presenting the plan through the plan mechanism.** Do NOT implement anything within this skill; implementation starts only after the user approves the plan.
 
 ## The Process
 
@@ -91,9 +91,13 @@ Fix any issues inline. No need to re-review — just fix and move on.
 
 ## Presenting the Plan
 
-- Enter plan mode (skip EnterPlanMode if plan mode is already active) and present the plan via ExitPlanMode
 - The plan carries the whole design — architecture, components, data flow, error handling, testing — and the decisions made along the way, scaled to complexity: a few sentences if straightforward, more if nuanced
-- Approval is plan mode's approval; do not run a separate design-approval round in the conversation
+- Approval is the plan mechanism's approval; do not run a separate design-approval round in the conversation
+
+## Plan mechanism by tool
+
+- Claude Code: enter plan mode (`EnterPlanMode`; skip if already active), write the plan, and present it via `ExitPlanMode`.
+- Codex: run this skill in Plan mode from the start. The model cannot enter Plan mode itself; the user switches with `/plan` before invoking `$brainstorming`. If this skill is invoked outside Plan mode, say so in one sentence and do nothing else. Present the plan as a `<proposed_plan>` block; approval is the user leaving Plan mode and requesting implementation.
 
 ## Key Principles
 

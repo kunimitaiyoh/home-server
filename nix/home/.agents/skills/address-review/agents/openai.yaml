@@ -1,0 +1,5 @@
+interface:
+  display_name: "Address Review"
+  short_description: "Apply valid PR review comments on this branch"
+policy:
+  allow_implicit_invocation: false

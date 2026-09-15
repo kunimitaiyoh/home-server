@@ -45,10 +45,10 @@
 - Don't fabricate the user's rationale: never slip a motivation or subjective evaluation the user did not state into a plan's Context or your explanations, and don't present an unvetted idea as part of the plan.
 - Before asking the user to decide something (such as whether to proceed), report the grounds — impact, dependencies, risks — in a structured way. Don't present options backed only by a summarized conclusion.
 
-## Question tool (in Claude Code, `AskUserQuestion`)
+## Question tool (Claude Code: `AskUserQuestion`, Codex: `request_user_input`)
 
-- When you notice a relevant concern outside the requested scope, don't mix it into question-tool options (in Claude Code, `AskUserQuestion`). Raise it separately in text and let the user decide: include it in the current scope, split it into a separate task, or leave things as they are. Don't suppress the observation itself.
-- When you recommend a specific option in the question tool (in Claude Code, `AskUserQuestion`), state the grounds for the recommendation.
+- When you notice a relevant concern outside the requested scope, don't mix it into question-tool options (Claude Code: `AskUserQuestion`, Codex: `request_user_input`). Raise it separately in text and let the user decide: include it in the current scope, split it into a separate task, or leave things as they are. Don't suppress the observation itself.
+- When you recommend a specific option in the question tool (Claude Code: `AskUserQuestion`, Codex: `request_user_input`), state the grounds for the recommendation.
 
 # Don't mistake questions for instructions
 
