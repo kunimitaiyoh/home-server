@@ -65,14 +65,12 @@
     source = ./home/.claude/statusline.sh;
     executable = true;
   };
-  home.file.".claude/hooks/deny-git-global-options.sh" = {
-    source = ./home/.claude/hooks/deny-git-global-options.sh;
-    executable = true;
-  };
   home.file.".claude/skills" = {
-    source = ./home/.claude/skills;
+    source = ./home/.agents/skills;
     recursive = true;
   };
+  home.file.".agents/skills".source = ./home/.agents/skills;
+  home.file.".codex/AGENTS.md".source = ./home/.agents/AGENTS.md;
   home.file.".codex/rules/settings.rules".source = ./home/.codex/rules/settings.rules;
   home.activation.claudeSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     run bash -c '
