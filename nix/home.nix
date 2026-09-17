@@ -31,7 +31,6 @@
     awscli2
   ]) ++ (with pkgs-unstable; [
     claude-code
-    codex
     opencode
   ]);
 
@@ -52,20 +51,28 @@
     };
   };
 
-  home.file.".claude/CLAUDE.md".source = ./home/.claude/CLAUDE.md;
+  home.file.".config/git/ignore".source = ./home/.config/git/ignore;
+  home.file.".local/share/bash-completion/completions/pnpm.bash".source = ./home/.local/share/bash-completion/completions/pnpm.bash;
+  home.file.".local/bin" = {
+    source = ./home/.local/bin;
+    recursive = true;
+  };
+  home.file.".claude/CLAUDE.md".text =
+    builtins.readFile ./home/.agents/AGENTS.md
+    + "\n"
+    + builtins.readFile ./home/.claude/CLAUDE.md;
+  home.file.".claude/statusline.sh" = {
+    source = ./home/.claude/statusline.sh;
+    executable = true;
+  };
   home.file.".claude/skills" = {
-    source = ./home/.claude/skills;
+    source = ./home/.agents/skills;
     recursive = true;
   };
-  home.file.".claude/rules" = {
-    source = ./home/.claude/rules;
-    recursive = true;
-  };
-  home.file.".claude/output-styles" = {
-    source = ./home/.claude/output-styles;
-    recursive = true;
-  };
-
+  home.file.".claude/skills/import-conversation".source = ./home/.claude/skills/import-conversation;
+  home.file.".agents/skills".source = ./home/.agents/skills;
+  home.file.".codex/AGENTS.md".source = ./home/.agents/AGENTS.md;
+  home.file.".codex/rules".source = ./home/.codex/rules;
   home.activation.claudeSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     run bash -c '
       mkdir -p ~/.claude

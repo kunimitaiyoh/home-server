@@ -11,36 +11,40 @@
       "Bash(gh pr list *)",
       "Bash(gh pr view *)",
       "Bash(gh run view *)",
-      "Bash(git -C * check-ignore *)",
-      "Bash(git -C * checkout *)",
-      "Bash(git -C * diff *)",
-      "Bash(git -C * fetch *)",
-      "Bash(git -C * grep *)",
-      "Bash(git -C * log *)",
-      "Bash(git -C * ls-remote *)",
-      "Bash(git -C * ls-tree *)",
-      "Bash(git -C * show *)",
-      "Bash(git -C * status *)",
+      "Bash(gh run list *)",
       "Bash(git check-ignore *)",
       "Bash(git checkout *)",
       "Bash(git fetch *)",
       "Bash(git grep *)",
       "Bash(git ls-remote *)",
       "Bash(git ls-tree *)",
+      "Bash(grep *)",
+      "Bash(jq *)",
+      "Bash(ls *)",
+      "Bash(pnpm view  *)",
       "Bash(terraform fmt *)",
       "Bash(terraform version *)",
       "WebFetch",
       "WebSearch"
     ],
-    "deny": [],
+    "deny": [
+      "Bash(git -C *)"
+    ],
     "ask": [
-      "Bash(git reset *)",
-      "Bash(rm *)"
+      "Bash(npm *)",
+      "Bash(npx *)"
     ],
     "defaultMode": "default"
   },
+  "model": "opus[1m]",
   "hooks": {},
+  "statusLine": {
+    "type": "command",
+    "command": "/home/bard/.claude/statusline.sh"
+  },
   "language": "Japanese",
-  "autoUpdatesChannel": "stable",
-  "outputStyle": "Strict"
+  "promptSuggestionEnabled": false,
+  "autoMemoryEnabled": false,
+  "autoUpdatesChannel": "latest",
+  "remoteControlAtStartup": true
 }

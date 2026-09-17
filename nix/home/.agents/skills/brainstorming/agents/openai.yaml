@@ -1,0 +1,5 @@
+interface:
+  display_name: "Brainstorming"
+  short_description: "Turn an idea into a design and a plan"
+policy:
+  allow_implicit_invocation: false
