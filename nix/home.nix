@@ -29,6 +29,7 @@
     stripe-cli
     android-tools
     awscli2
+    gcc
   ]) ++ (with pkgs-unstable; [
     claude-code
     opencode
@@ -48,6 +49,7 @@
     globalConfig.tools = {
       node = [ "26" "24" "22" ];
       pnpm = "latest";
+      rust = "latest";
     };
   };
 
