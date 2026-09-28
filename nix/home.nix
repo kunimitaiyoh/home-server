@@ -54,6 +54,7 @@
   };
 
   home.file.".config/git/ignore".source = ./home/.config/git/ignore;
+  home.file.".config/pnpm/rc".source = ./home/.config/pnpm/rc;
   home.file.".local/share/bash-completion/completions/pnpm.bash".source = ./home/.local/share/bash-completion/completions/pnpm.bash;
   home.file.".local/bin" = {
     source = ./home/.local/bin;
