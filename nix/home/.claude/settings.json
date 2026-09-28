@@ -1,9 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "Bash(aws logs describe-log-groups *)",
-      "Bash(aws logs filter-log-events *)",
-      "Bash(aws logs get-function-configuration *)",
+      "Bash(aws cloudfront get-*)",
+      "Bash(aws cloudfront list-*)",
+      "Bash(aws lambda get-*)",
+      "Bash(aws logs describe-*)",
+      "Bash(aws logs filter-*)",
+      "Bash(aws logs get-*)",
       "Bash(gh issue list *)",
       "Bash(gh issue view *)",
       "Bash(gh pr checks *)",
