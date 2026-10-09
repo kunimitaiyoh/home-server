@@ -15,7 +15,7 @@ Configuration management for the single home server `radio` (MINISFORUM X1 Lite-
 
 - Ansible must be idempotent. Use dedicated modules instead of `shell`/`command`; the accepted exceptions are the Nix installer invocation guarded by `creates` and the `netplan apply` handler, which runs only when notified by a configuration change.
 - The playbook is a single `site.yaml`. Split it into task files only when it actually grows too large.
-- Reproducibility: `flake.lock` is committed. `nixpkgs` tracks the current stable branch; `nixos-unstable` is used only for fast-moving packages (claude-code, codex, opencode).
+- Reproducibility: `flake.lock` is committed. `nixpkgs` tracks the current stable branch; `nixos-unstable` is used only for packages whose stable version is insufficient (e.g., fast-moving tools or missing fixes).
 
 ## Conventions
 

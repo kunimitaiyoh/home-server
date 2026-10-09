@@ -11,7 +11,6 @@
     jq
     ripgrep
     btop
-    byobu
     tmux
     vim
     nano
@@ -31,6 +30,9 @@
     awscli2
     gcc
   ]) ++ (with pkgs-unstable; [
+    # stable (nixos-26.05) ships 6.13, whose session selector drops hyphenated session names;
+    # fixed upstream in https://github.com/dustinkirkland/byobu/commit/188553682509e5f31dfab33109b95f8f9e7c7138
+    byobu
     claude-code
     opencode
   ]);
