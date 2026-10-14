@@ -12,8 +12,10 @@
     ripgrep
     btop
     tmux
+    zellij
     vim
     nano
+    micro
     curl
     wget
     rsync
@@ -35,7 +37,11 @@
     byobu
     claude-code
     opencode
+    # stable (nixos-26.05) ships 0.3.6, far behind upstream (0.5.x); fast-moving tool
+    fresh-editor
   ]);
+
+  home.sessionVariables.EDITOR = "micro";
 
   programs.home-manager.enable = true;
 
