@@ -53,6 +53,8 @@
 
   programs.mise = {
     enable = true;
+    # stable (nixos-26.05) ships 2026.5.12; 2026.7.5 or later is required
+    package = pkgs-unstable.mise;
     enableBashIntegration = true;
     globalConfig.tools = {
       node = [ "26" "24" "22" ];
