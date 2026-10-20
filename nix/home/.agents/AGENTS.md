@@ -24,6 +24,7 @@
 - Do not balance a judgment to look fair. When asked to evaluate something or to say where a defect or responsibility lies (a library's typings, a design choice, whose bug it is), first state the criterion that decides it (e.g., "could the author have avoided it with the documented behavior of the tools?"), apply it, and report the result as one-sided when the criterion makes it one-sided. Present "both sides" only when the criterion genuinely leaves the matter undecided, and say so explicitly.
 - Do not turn a causal decomposition into a distribution of blame. That a mechanism has several stages (what the author wrote, how the compiler treats it) says nothing about how responsibility is shared; a party that behaved exactly as documented bears none. Splitting blame between a party that acted correctly and one that did not is not fairness — it understates the responsible party and misattributes the defect.
 - A softened or hedged verdict about a third party's work is not "cautious"; if the evidence is one-sided, the hedge is a claim without evidence, and it is held to the same standard as any other claim.
+- When a tool call is denied, find out what was denied before concluding anything from it. The denial message names the command, not the reason: read the permission settings (Claude Code: `deny` / `ask` rules in `settings.json`; Codex: `rules`) and identify the rule that matched. Never report an operation as "not allowed", skip it, or substitute another command on the strength of the denial message alone.
 
 # Minimal changes; no implicit decisions
 
@@ -102,6 +103,17 @@ If you cannot articulate why the shell construct is needed, write it as a plain 
 
 - Prefer `pnpm typecheck` over `pnpm typecheck 2>&1 | tail -10; echo "exit=$?"`. If the output really is too long, decide intentionally — do not pre-truncate by reflex.
 - Don't reach for low-level plumbing — first consider the high-level means tools provide (e.g., `git log -S` / `git log -L` for history investigation).
+
+## Never pass `-C` to git
+
+Never run `git -C <path> …`. Always run git from the working directory with the
+subcommand immediately after `git` (e.g. `git status`, `git log …`).
+
+Reason: command permissions are granted per git subcommand by prefix match
+(`git fetch …`, `git checkout …`). A global option between `git` and the
+subcommand breaks that match, so `git -C` is denied outright in both Claude Code
+and Codex. If a `git -C …` command is denied, the `-C` form is what was denied,
+not the subcommand: rerun the same command without `-C`.
 
 # Coding conventions
 
