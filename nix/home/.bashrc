@@ -57,20 +57,26 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    prompt_pre='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]'
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    prompt_pre='${debian_chroot:+($debian_chroot)}\u@\h:\w'
 fi
-unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    prompt_pre="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$prompt_pre"
     ;;
 *)
     ;;
 esac
+
+# git status in the prompt (git-prompt.sh shipped with git)
+. ~/.nix-profile/share/bash-completion/completions/git-prompt.sh
+GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWCOLORHINTS=1
+PROMPT_COMMAND="__git_ps1 '$prompt_pre' '\\\$ '"
+unset prompt_pre color_prompt force_color_prompt
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
