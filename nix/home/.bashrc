@@ -102,6 +102,27 @@ alias l='ls -CF'
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
+# cwt [<worktree>]: cd to the same relative location in another worktree.
+# <worktree> is relative to the main worktree's root; omit it to go to the main worktree.
+cwt() {
+  local main prefix dest
+  main=$(git worktree list --porcelain | sed -n '1s/^worktree //p')
+  [ -n "$main" ] || return 1
+  prefix=$(git rev-parse --show-prefix) || return
+  dest="$main/${1:-.}/$prefix"
+  [ -d "$dest" ] || { echo "cwt: no such directory: $dest" >&2; return 1; }
+  cd -- "$dest"
+}
+
+_cwt() {
+  local main worktrees
+  main=$(git worktree list --porcelain 2>/dev/null | sed -n '1s/^worktree //p')
+  [ -n "$main" ] || return
+  worktrees=$(git worktree list --porcelain | sed -n "s|^worktree $main/||p")
+  COMPREPLY=($(compgen -W "$worktrees" -- "$2"))
+}
+complete -F _cwt cwt
+
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
