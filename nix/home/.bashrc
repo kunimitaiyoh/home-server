@@ -116,6 +116,7 @@ cwt() {
 
 _cwt() {
   local main worktrees
+  [ "$COMP_CWORD" -eq 1 ] || return
   main=$(git worktree list --porcelain 2>/dev/null | sed -n '1s/^worktree //p')
   [ -n "$main" ] || return
   worktrees=$(git worktree list --porcelain | sed -n "s|^worktree $main/||p")
