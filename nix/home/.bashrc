@@ -72,7 +72,7 @@ xterm*|rxvt*)
 esac
 
 # git status in the prompt (git-prompt.sh shipped with git)
-. ~/.nix-profile/share/bash-completion/completions/git-prompt.sh
+. /usr/lib/git-core/git-sh-prompt
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWCOLORHINTS=1
 PROMPT_COMMAND="__git_ps1 '$prompt_pre' '\\\$ '"

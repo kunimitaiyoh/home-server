@@ -6,7 +6,6 @@
   home.stateVersion = "26.05";
 
   home.packages = (with pkgs; [
-    git
     gh
     lazygit
     jq
@@ -31,7 +30,6 @@
     stripe-cli
     android-tools
     awscli2
-    gcc
     python3Packages.huggingface-hub
   ]) ++ (with pkgs-unstable; [
     # stable (nixos-26.05) ships 6.13, whose session selector drops hyphenated session names;

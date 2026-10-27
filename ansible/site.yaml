@@ -142,6 +142,17 @@
           - fonts-noto-cjk
           - fonts-noto-color-emoji
 
+    - name: Install Vulkan development toolchain
+      ansible.builtin.apt:
+        name:
+          - cmake
+          - build-essential
+          - libvulkan-dev
+          - mesa-vulkan-drivers
+          - vulkan-tools
+          - glslc
+          - spirv-headers
+
     - name: Install Ubuntu Desktop
       ansible.builtin.apt:
         name:
