@@ -41,8 +41,6 @@
     fresh-editor
   ]);
 
-  home.sessionVariables.EDITOR = "micro";
-
   programs.home-manager.enable = true;
 
   programs.bash = {
