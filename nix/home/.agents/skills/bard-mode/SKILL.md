@@ -11,4 +11,4 @@ Invoke the `pstack:poteto-mode` skill and follow it in full, with one exception.
 ## Writing the reply
 
 - A topic is a heading, not part of a sentence.
-- Parallel items go in a bulleted list, not in one sentence.
+- Parallel items go in a list, not in one sentence. Number the list when the order matters.
